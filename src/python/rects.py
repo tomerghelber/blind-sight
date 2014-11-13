@@ -6,7 +6,7 @@ import sys
 
 def get_rects(img):
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    edges = cv2.Canny(gray,50,150,apertureSize = 3)
+    edges = cv2.Canny(gray,30,150,apertureSize = 3, L2gradient=True)
     mat = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
     dilated = cv2.dilate(edges, mat)
 
