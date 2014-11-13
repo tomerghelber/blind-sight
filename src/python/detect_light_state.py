@@ -46,8 +46,8 @@ def detect_light_state(img, match_threshold=180, off_threshold=40):
     upper_state, upper_diff = _heuristic_dominant_color(upper_img)
     lower_state, lower_diff = _heuristic_dominant_color(lower_img)
 
-    possibly_red = (upper_state == 'red' and upper_diff > match_threshold and lower_diff < off_threshold)
-    possibly_green = (lower_state =='green' and lower_diff > match_threshold and upper_diff < off_threshold)
+    possibly_red = (upper_state == 'red' and upper_diff > match_threshold and (lower_diff < off_threshold or lower_diff * 6 < upper_diff))
+    possibly_green = (lower_state =='green' and lower_diff > match_threshold and (upper_diff < off_threshold or upper_diff * 6 < lower_diff))
 
     if possibly_green and not possibly_red:
         return 'green'
