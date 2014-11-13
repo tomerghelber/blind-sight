@@ -49,9 +49,6 @@ def detect_light_state(img, match_threshold=180, off_threshold=40):
     possibly_red = (upper_state == 'red' and upper_diff > match_threshold and lower_diff < off_threshold)
     possibly_green = (lower_state =='green' and lower_diff > match_threshold and upper_diff < off_threshold)
 
-    print upper_state, upper_diff
-    print lower_state, lower_diff
-
     if possibly_green and not possibly_red:
         return 'green'
     elif possibly_red and not possibly_green:
