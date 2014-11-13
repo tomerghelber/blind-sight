@@ -1,13 +1,8 @@
 import cv2
-from detect_light_state import detect_light_state
+from detect_light_state import detect_light_state, show_image
 import numpy as np
 import random
 import sys
-
-def show_image(i):
-    cv2.imshow('image',i)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
 def get_rects(img):
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
