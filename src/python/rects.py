@@ -21,22 +21,20 @@ def get_rects(img):
         yield (x,y),(x+w,y+h)
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        img = cv2.imread(sys.argv[1])
-    else:
-        print "Usage: %s image" % sys.argv[0]
+    if len(sys.argv) < 2:
+        print "Usage: %s image [image...]" % sys.argv[0]
         sys.exit(1)
 
-    for ul, br in get_rects(img):
-        i = img[ul[1]:br[1], ul[0]:br[0]]
-        res = detect_light_state(i)
-        if res == 'green':
-            col = (0, 255, 0)
-        elif res == 'red':
-            col = (0, 0, 255)
-        else:
-            col = (100, 100, 100)
-        cv2.rectangle(img, ul, br, col, 2)
-    show_image(img)
-
-
+    for f in sys.argv[1:]:
+        img = cv2.imread(f)
+        for ul, br in get_rects(img):
+            i = img[ul[1]:br[1], ul[0]:br[0]]
+            res = detect_light_state(i)
+            if res == 'green':
+                col = (0, 255, 0)
+            elif res == 'red':
+                col = (0, 0, 255)
+            else:
+                col = (100, 100, 100)
+            cv2.rectangle(img, ul, br, col, 2)
+        show_image(img)
