@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import random
+import sys
 
 def show_image(i):
     cv2.imshow('image',i)
@@ -24,7 +25,12 @@ def get_rects(img):
         yield (x,y),(x+w,y+h)
 
 if __name__ == "__main__":
-    img = cv2.imread('street.jpg')
+    if len(sys.argv) == 2:
+        img = cv2.imread(sys.argv[1])
+    else:
+        print "Usage: %s image" % sys.argv[0]
+        sys.exit(1)
+
     for ul, br in get_rects(img):
         cv2.rectangle(img,ul,br,(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)),2)
     show_image(img)
