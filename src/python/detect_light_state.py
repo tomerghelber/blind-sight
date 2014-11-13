@@ -41,8 +41,8 @@ def detect_light_state(img, threshold=100):
 
     if possibly_green and not possibly_red:
         return 'green'
-    else if possibly_red and not possibly_green:
+    elif possibly_red and not possibly_green:
         return 'red'
     else:
         return 'NAN'
-    
+

@@ -1,4 +1,5 @@
 import cv2
+from detect_light_state import detect_light_state
 import numpy as np
 import random
 import sys
@@ -32,5 +33,15 @@ if __name__ == "__main__":
         sys.exit(1)
 
     for ul, br in get_rects(img):
-        cv2.rectangle(img,ul,br,(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)),2)
+        i = img[ul[1]:br[1], ul[0]:br[0]]
+        res = detect_light_state(i)
+        if res == 'green':
+            col = (0, 255, 0)
+        elif res == 'red':
+            col = (0, 0, 255)
+        else:
+            col = (100, 100, 100)
+        cv2.rectangle(img, ul, br, col, 2)
     show_image(img)
+
+
