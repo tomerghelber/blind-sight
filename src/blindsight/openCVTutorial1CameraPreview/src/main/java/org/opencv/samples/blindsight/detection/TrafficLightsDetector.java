@@ -14,6 +14,23 @@ import java.util.List;
  */
 public class TrafficLightsDetector {
 
+    public TrafficLight getState(Mat img) {
+        List<TrafficLight> trafs = getAllTrafficLights(img, TH1, TH2);
+        if (trafs.size() == 0) {
+            return null;
+        }
+        TrafficLight largest = null;
+        for (TrafficLight tl : trafs) {
+            TrafficLight.State state = tl.detectLightState();
+            if ((state != TrafficLight.State.NA) &&
+                    ((largest == null) ||
+                    (largest.getRect().width < tl.getRect().width && largest.getRect().height < tl.getRect().height))) {
+                largest = tl;
+            }
+        }
+        return largest;
+    }
+
     public List<TrafficLight> getAllTrafficLights(Mat img, double th1, double th2) {
         List<Rect> rects = filterRects(getEveryRect(img, th1, th2));
         List<TrafficLight> lights = new ArrayList<TrafficLight>();
@@ -62,5 +79,8 @@ public class TrafficLightsDetector {
     }
 
     private static final int MIN_VALID_RECT_DIMENTIONS = 15;
+
+    private static final int TH1 = 30;
+    private static final int TH2 = 90;
 
 }

@@ -23,6 +23,7 @@ import com.google.maps.model.TravelMode;
 
 import org.opencv.samples.blindsight.R;
 import org.opencv.samples.blindsight.detection.CameraActivity;
+import org.opencv.samples.blindsight.handler.VocalHandler;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,13 +44,14 @@ public class MainActivity extends Activity {
 
         Button detect = (Button) findViewById(R.id.detect_btn);
 
+        handler = new VocalHandler(getApplicationContext());
+
         detect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -179,4 +181,7 @@ public class MainActivity extends Activity {
     // location calculation
     private Geocoder geocoder = null;
     private GeoApiContext geoApiContext = null;
+
+
+    private VocalHandler handler;
 }

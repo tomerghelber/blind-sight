@@ -3,6 +3,7 @@ package org.opencv.samples.blindsight.detection;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 
@@ -16,6 +17,17 @@ public class TrafficLight {
     public TrafficLight(Mat img, Rect roi) {
         this.image = img;
         this.roi = roi;
+    }
+
+    private double pointDistance(Point a, Point b) {
+        return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+    }
+
+    public double diff(TrafficLight other) {
+        Point centerSelf = new Point(roi.x + roi.width / 2, roi.y + roi.height / 2);
+        Point centerOther = new Point(other.roi.x + other.roi.width / 2, other.roi.y + other.roi.height / 2);
+
+        return pointDistance(centerSelf, centerOther) + pointDistance(roi.br(), other.roi.br()) + pointDistance(roi.tl(), other.roi.tl());
     }
 
     public State detectLightState() {

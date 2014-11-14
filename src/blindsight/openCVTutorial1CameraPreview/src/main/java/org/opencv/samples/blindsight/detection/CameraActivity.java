@@ -8,23 +8,35 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.samples.blindsight.R;
+import org.opencv.samples.blindsight.handler.StateHandler;
+import org.opencv.samples.blindsight.handler.VocalHandler;
+import org.opencv.samples.blindsight.navigation.MainActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Queue;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2 {
     private static final String TAG = "OCVSample::Activity";
@@ -36,6 +48,10 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
     private static final Scalar RED = new Scalar(255.0, 0.0, 0.0);
     private static final Scalar GREEN = new Scalar(0.0, 255.0, 0.0);
     private static final Scalar GRAY = new Scalar(100.0, 100.0, 100.0);
+
+    public TextView data;
+
+    private StateHandler handler;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -52,6 +68,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
                 break;
             }
         }
+
     };
 
     public CameraActivity() {
@@ -66,7 +83,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         setContentView(R.layout.tutorial1_surface_view);
 
         if (mIsJavaCamera)
@@ -77,6 +93,23 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 
         mOpenCvCameraView.setCvCameraViewListener(this);
+
+        Button done = (Button) findViewById(R.id.done);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOpenCvCameraView != null)
+                    mOpenCvCameraView.disableView();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        latest = new ArrayList<TrafficLight>();
+
+        data = (TextView) findViewById(R.id.data);
+
+        handler = new VocalHandler(this);
 
     }
 
@@ -143,11 +176,22 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         Mat img = inputFrame.rgba();
         try {
             TrafficLightsDetector det = new TrafficLightsDetector();
-            List<TrafficLight> trafs = det.getAllTrafficLights(img, 30, 90);
-            Log.e(TAG, trafs.size() + "");
-            for (TrafficLight light : trafs) {
-                Rect rect = light.getRect();
-                Core.rectangle(img ,rect.br(), rect.tl(), getColor(light), 2);
+//            List<TrafficLight> trafs = det.getAllTrafficLights(img, 30, 90);
+//            for (TrafficLight traf : trafs) {
+//                Rect rect = traf.getRect();
+//                Core.rectangle(img ,rect.br(), rect.tl(), getColor(traf.detectLightState()), 2);
+//            }
+
+            TrafficLight light = det.getState(img);
+            latest.add(light);
+            if (latest.size() > 3) {
+                latest.remove(0);
+            }
+            TrafficLight.State state  = getDominantState();
+            if (state == TrafficLight.State.GREEN) {
+                handler.handlegreen();
+            } else if (state == TrafficLight.State.RED) {
+                handler.handleRed();
             }
             return img;
 
@@ -157,8 +201,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         return img;
     }
 
-    private Scalar getColor(TrafficLight traf) {
-        TrafficLight.State state = traf.detectLightState();
+    private Scalar getColor(TrafficLight.State state) {
         if (state == TrafficLight.State.GREEN) {
             return GREEN;
         } else if (state == TrafficLight.State.RED) {
@@ -166,5 +209,24 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         }
         return GRAY;
     }
+
+    private TrafficLight.State getDominantState() {
+        int red = 0, green = 0;
+        for (TrafficLight light : latest) {
+            if (light.detectLightState() == TrafficLight.State.GREEN) {
+                green += 1;
+            } else if (light.detectLightState() == TrafficLight.State.RED) {
+                red += 1;
+            }
+        }
+
+        if (red < latest.size() / 2 && green < latest.size() / 2) {
+            return TrafficLight.State.NA;
+        } else {
+            return green < red ? TrafficLight.State.RED : TrafficLight.State.GREEN;
+        }
+    }
+
+    List<TrafficLight> latest;
 
 }
