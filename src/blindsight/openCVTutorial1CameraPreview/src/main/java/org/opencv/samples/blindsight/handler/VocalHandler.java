@@ -21,7 +21,6 @@ public class VocalHandler implements StateHandler, TextToSpeech.OnInitListener {
 
     @Override
     public void handlegreen() {
-        Toast.makeText(context, "GREEN!", Toast.LENGTH_SHORT);
         speakOut("Green!");
 
     }

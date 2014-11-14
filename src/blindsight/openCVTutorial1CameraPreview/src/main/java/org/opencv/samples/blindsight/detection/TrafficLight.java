@@ -9,9 +9,6 @@ import org.opencv.imgproc.Imgproc;
 
 import java.util.Arrays;
 
-/**
- * Created by user-pc on 13/11/2014.
- */
 public class TrafficLight {
 
     public TrafficLight(Mat img, Rect roi) {
