@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OCV T1 Preview</string>
+
+    <string name="app_name">BlindSight</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="API_KEY">AIzaSyA65Al7OMVH58nLFj-PQQUpgAv11HjGhto</string>
+
+    <integer name="google_play_services_version">17</integer>
 </resources>

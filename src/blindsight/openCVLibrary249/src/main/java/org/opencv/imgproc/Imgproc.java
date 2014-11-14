@@ -437,12 +437,12 @@ public class Imgproc {
  * @param image single-channel 8-bit input image.
  * @param edges output edge map; it has the same size and type as
  * <code>image</code>.
- * @param threshold1 first threshold for the hysteresis procedure.
+ * @param v
+ *@param threshold1 first threshold for the hysteresis procedure.
  * @param threshold2 second threshold for the hysteresis procedure.
- *
- * @see <a href="http://docs.opencv.org/modules/imgproc/doc/feature_detection.html#canny">org.opencv.imgproc.Imgproc.Canny</a>
+ *   @see <a href="http://docs.opencv.org/modules/imgproc/doc/feature_detection.html#canny">org.opencv.imgproc.Imgproc.Canny</a>
  */
-    public static void Canny(Mat image, Mat edges, double threshold1, double threshold2)
+    public static void Canny(Mat image, Mat edges, double v, double threshold1, double threshold2)
     {
 
         Canny_1(image.nativeObj, edges.nativeObj, threshold1, threshold2);
