@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 11
+    compileSdkVersion 17
     buildToolsVersion "21.0.2"
 
     defaultConfig {
         applicationId "org.opencv.samples.tutorial1"
-        minSdkVersion 8
-        targetSdkVersion 8
+        minSdkVersion 17
+        targetSdkVersion 17
     }
 
     buildTypes {
@@ -20,4 +20,7 @@ android {
 
 dependencies {
     compile project(':openCVLibrary249')
+
+    compile 'com.google.maps:google-maps-services:0.1.4'
+
 }
