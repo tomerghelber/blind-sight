@@ -32,5 +32,3 @@ proguard/
 *.log
 
 *.pyc
-src/python/*.jpg
-src/python/*.png
