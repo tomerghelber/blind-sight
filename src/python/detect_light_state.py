@@ -31,24 +31,25 @@ def _heuristic_dominant_color(img, lower_thresh=100, upper_thresh=250):
     lower_green = np.array([50,50,50])
     upper_green = np.array([80,255,255])
     green_mask = cv2.inRange(img, lower_green, upper_green)
-    green = sum(sum(i) for i in green_mask) / 255
+    green = cv2.countNonZero(green_mask)
 
     lower_red = np.array([0,50,50])
     upper_red = np.array([7,255,255])
     red_mask = cv2.inRange(img, lower_red, upper_red)
-    red = sum(sum(i) for i in red_mask) / 255.
+
+    red = cv2.countNonZero(red_mask)
 
     lower_red = np.array([155,50,50])
     upper_red = np.array([180,255,255])
     red_mask = cv2.inRange(img, lower_red, upper_red)
-    red += sum(sum(i) for i in red_mask) / 255.
+    red += cv2.countNonZero(red_mask)
 
     lower_blue = np.array([90, 50, 50])
     upper_blue = np.array([140, 255, 255])
     blue_mask = cv2.inRange(img, lower_blue, upper_blue)
-    blue = sum(sum(i) for i in blue_mask) / 255.
+    blue = cv2.countNonZero(blue_mask)
 
-    total = red + green + blue
+    total = float(red + green + blue)
     if total == 0:
         return 'nan', 0, 0
 
