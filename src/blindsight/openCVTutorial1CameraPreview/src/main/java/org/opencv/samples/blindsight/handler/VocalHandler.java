@@ -7,12 +7,15 @@ import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
 
 public class VocalHandler implements StateHandler, TextToSpeech.OnInitListener {
-
     private TextToSpeech tts;
     private Context context;
+    private long lastGreen;
+    private long lastRed;
 
     public VocalHandler(Context context) {
         this.context = context;
@@ -21,14 +24,23 @@ public class VocalHandler implements StateHandler, TextToSpeech.OnInitListener {
 
     @Override
     public void handlegreen() {
-        speakOut("Green!");
+        if (lastGreen == 0) {
+            lastGreen = System.currentTimeMillis();
+        } else if (System.currentTimeMillis() - lastGreen  > 2000) {
+            speakOut("Green!");
+            lastGreen = System.currentTimeMillis();
+        }
 
     }
 
     @Override
     public void handleRed() {
-
-        speakOut("Red!");
+        if (lastRed == 0) {
+            lastRed = System.currentTimeMillis();
+        } else if (System.currentTimeMillis() - lastRed > 2000) {
+            speakOut("Red!");
+            lastRed = System.currentTimeMillis();
+        }
     }
 
     @Override
