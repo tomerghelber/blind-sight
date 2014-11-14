@@ -1,10 +1,12 @@
 package org.opencv.samples.blindsight.navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import org.opencv.samples.blindsight.R;
+import org.opencv.samples.blindsight.detection.CameraActivity;
 
 
 public class MainActivity extends UpdateableActivity {
@@ -87,6 +89,8 @@ public class MainActivity extends UpdateableActivity {
     }
 
     public void findTrafficLight(View v) {
+        Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
+        startActivity(intent);
     }
 
 
