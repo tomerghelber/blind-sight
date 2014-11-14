@@ -8,9 +8,11 @@ from matplotlib import pyplot as plt
 
 def show_image(i):
     cv2.imshow('image',i)
-    k = cv2.waitKey(0)
-    if k == 1048680:
+    k = cv2.waitKey(0) & 0xff
+    if k == ord('h'):
         _show_hist_curve(i)
+    elif k == 27:
+        os._exit(2)
     cv2.destroyAllWindows()
 
 def _split_image(img):

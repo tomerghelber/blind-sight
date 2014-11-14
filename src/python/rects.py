@@ -4,9 +4,10 @@ import numpy as np
 import random
 import sys
 
-def get_rects(img):
+def get_rects(img, th1=30, th2=150):
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    edges = cv2.Canny(gray,30,150,apertureSize = 3, L2gradient=True)
+    edges = cv2.Canny(gray,th1,th2,apertureSize = 3, L2gradient=True)
+
     mat = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
     dilated = cv2.dilate(edges, mat)
 
