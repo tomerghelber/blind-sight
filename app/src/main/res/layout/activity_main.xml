@@ -62,7 +62,6 @@
         android:onClick="nextStep"
         android:text="next step"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_marginTop="120dp" />
 
     <Button
@@ -72,9 +71,19 @@
         android:onClick="findTrafficLight"
         android:text="traffic light"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_marginTop="120dp"
-        android:layout_marginLeft="200dp"/>
+        android:layout_marginStart="200dp"/>
+
+    <com.google.android.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map_view"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:enabled="true"
+        android:clickable="true"
+        android:apiKey="API_KEY"
+        android:layout_alignTop="@+id/edit_message"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

@@ -21,6 +21,8 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/API_KEY"/>
 
+        <uses-library android:name="com.google.android.maps"/>
+
 
     </application>
 
