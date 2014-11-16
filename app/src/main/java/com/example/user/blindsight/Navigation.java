@@ -11,9 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-/**
- * Created by michelle on 13/11/2014.
- */
 public class Navigation extends ActivityResource {
 
     public Navigation(Activity activity) {
@@ -54,32 +51,28 @@ public class Navigation extends ActivityResource {
             stopVibrating();
             return;
         }
-        float[] distanceAndAngle = position.comparePositions(next);
+        float distance = position.getDistance(next);
+        float recommended_angle = position.getAngle(next);
 
 
         updateable.clear();
-        updateable.print(distanceAndAngle[0] + " --- " + getRightAngel(distanceAndAngle[1]) + "\n");
+        updateable.print(distance + " --- " + recommended_angle + "\n");
         updateable.print("next:\n" + next.longitude + " , " + next.latitude + "\n");
         updateable.print("current:\n" + position.longitude + " , " + position.latitude + "\n" + angle);
 
 
-        if (distanceAndAngle.length >= 1) {
-            //distance
-            if (distanceAndAngle[0] < Position.MIN_DISTANCE) {
-                nextStep();
-                updateable.print("next position");
-                walk(position, angle);
+        //distance
+        if (position.isNear(next)) {
+            nextStep();
+            updateable.print("next position");
+            walk(position, angle);
+        } else {
+            //angle
+            if (Math.abs(recommended_angle - angle) > Position.MIN_ANGLE) {
+                vibrate();
             } else {
-                if (distanceAndAngle.length >= 2) {
-                    //angle
-                    if (Math.abs(getRightAngel(distanceAndAngle[1]) - angle) > Position.MIN_ANGLE) {
-                        vibrate();
-                    } else {
-                        stopVibrating();
-                    }
-                }
+                stopVibrating();
             }
-
         }
     }
 
@@ -104,14 +97,14 @@ public class Navigation extends ActivityResource {
             way.add(new Position(directionsStep.startLocation.lng, directionsStep.startLocation.lat));
         }
     }
-
-    //transfer from -180 - 180 Angel to 0 - 360 Angel
-    private float getRightAngel(float angel) {
-        if (angel < 0) {
-            return 180 - angel;
-        }
-        return angel;
-    }
+//
+//    //transfer from -180 - 180 Angel to 0 - 360 Angel
+//    private float getRightAngel(float angel) {
+//        if (angel < 0) {
+//            return 180 - angel;
+//        }
+//        return angel;
+//    }
 
     public void walk(double x, double y, float angle) {
         walk(new Position(x, y), angle);

@@ -4,9 +4,6 @@ import android.location.Location;
 
 import com.google.maps.model.LatLng;
 
-/**
- * Created by michelle on 14/11/2014.
- */
 public class Position {
 
     public Position(double x, double y) {
@@ -26,14 +23,27 @@ public class Position {
     }
 
     public boolean isNear(Position pos) {
-        if (this.getDistance(pos) < MIN_DISTANCE) {
-            return true;
-        } return false;
+        return this.getDistance(pos) < MIN_DISTANCE;
     }
 
-    public float getAngle(Position pos) {
-        float[] distanceAndAngle = this.comparePositions(pos);
-        return distanceAndAngle[1];
+    public float getAngle(Position to) {
+        double dx = to.longitude - this.longitude;
+        double dy = to.latitude - this.latitude;
+        double result;
+        if (dx > 0) {
+            result = Math.PI * 0.5 - Math.atan(dy / dx);
+        } else {
+            if (dx < 0) {
+                result = Math.PI * 1.5 - Math.atan(dy / dx);
+            } else {
+                if (dy > 0) {
+                    result = 0;
+                } else {
+                    result = Math.PI;
+                }
+            }
+        }
+        return (float) Math.toDegrees(result);
     }
 
     public LatLng toLatLng() {
