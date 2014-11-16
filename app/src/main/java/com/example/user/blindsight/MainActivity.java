@@ -59,16 +59,16 @@ public class MainActivity extends UpdateableActivity  {
     }
 
     public void update() {
-        double x = userLocation.getX();
-        double y = userLocation.getY();
+        double x = userLocation.getLongitude();
+        double y = userLocation.getLatitude();
         if (x != 0 || y != 0) {
             try {
                 navigation.walk(x, y, userRotation.getAngle());
             } catch (Exception e) {
                 print(e.getClass().getName() + ": " + e.getMessage());
             }
-            //text.setText("x :" + userLocation.getX());
-            //text.append("y :" + userLocation.getY());
+            //text.setText("x :" + userLocation.getLongitude());
+            //text.append("y :" + userLocation.getLatitude());
             //text.append("rotation :" + userRotation.getAngle());
         }
     }
