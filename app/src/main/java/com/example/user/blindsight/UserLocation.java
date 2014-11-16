@@ -102,19 +102,17 @@ public class UserLocation extends UpdateableActivityResource {
     public void makeUseOfNewLocation(Location location) {
         if (isBetterLocation(location, currentLocation)) {
             currentLocation = location;
-            y = location.getLongitude();
-            x = location.getLatitude();
+            currentPosition = new Position(location.getLongitude(), location.getLatitude());
             updateable.update();
         }
     }
 
-    public double getX() { return x; }
-    public double getY() { return y; }
+    public double getLongitude() { return currentLocation.getLongitude(); }
+    public double getLatitude() { return currentLocation.getLatitude(); }
 
     public LocationManager locationManager = null;
 
-    private double x = 0;
-    private double y = 0;
+    private Position currentPosition = new Position(0,0);
 
     private Location currentLocation;
 }

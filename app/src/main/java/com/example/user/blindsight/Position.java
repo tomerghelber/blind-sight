@@ -6,9 +6,9 @@ import com.google.maps.model.LatLng;
 
 public class Position {
 
-    public Position(double x, double y) {
-        this.longitude = x;
-        this.latitude = y;
+    public Position(double longitude, double latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public float[] comparePositions(Position pos) {
