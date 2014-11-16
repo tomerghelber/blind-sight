@@ -7,4 +7,9 @@
     <string name="API_KEY">AIzaSyA65Al7OMVH58nLFj-PQQUpgAv11HjGhto</string>
 
     <integer name="google_play_services_version">17</integer>
+
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="title_activity_main">MainActivity</string>
+
 </resources>

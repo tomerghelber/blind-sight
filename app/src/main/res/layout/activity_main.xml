@@ -5,9 +5,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+    <FrameLayout android:id="@+id/map_frame"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView" />
+        android:layout_weight="0.7" >
+
+
+    </FrameLayout>
+
+
+    <TextView android:id="@+id/edit_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_message"
+        android:layout_marginTop="200dp"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -17,6 +28,7 @@
         android:id="@+id/editTextOrigin"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="20dp" />
 
     <EditText
@@ -27,15 +39,19 @@
         android:id="@+id/editTextDestination"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="50dp" />
 
     <Button
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/buttonFind"
         android:onClick="findPath"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="100dp" />
+        android:layout_alignParentLeft="true"
+        android:text="search"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="100dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,14 +59,41 @@
         android:ems="10"
         android:id="@+id/myShit"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="120dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="110dp"
+        android:visibility="visible"/>
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/edit_message"
+        android:id="@+id/nextLocation"
+        android:onClick="nextStep"
+        android:text="next step"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="150dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="120dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trafficLight"
+        android:onClick="findTrafficLight"
+        android:text="traffic light"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="200dp"/>
+
+    <com.google.android.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:enabled="true"
+        android:clickable="true"
+        android:apiKey="dgvbdj_my_secret_key_nvc8mxcksos"
+        android:layout_alignTop="@+id/edit_message"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>
+
