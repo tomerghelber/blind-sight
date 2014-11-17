@@ -9,8 +9,8 @@
     <TextView android:id="@+id/edit_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_message"
-        android:layout_marginTop="200dp"/>
+        android:layout_marginTop="200dp"
+        android:visibility="invisible"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -18,6 +18,8 @@
         android:inputType="textPostalAddress"
         android:ems="10"
         android:id="@+id/editTextOrigin"
+        android:hint="@string/edit_from"
+        android:contentDescription="The address where the navigation will start. Default to your current location"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp" />
 
@@ -27,6 +29,8 @@
         android:inputType="textPostalAddress"
         android:ems="10"
         android:id="@+id/editTextDestination"
+        android:contentDescription="You destination."
+        android:hint="@string/edit_to"
         android:layout_alignParentStart="true"
         android:layout_marginTop="50dp" />
 
@@ -37,8 +41,9 @@
         android:onClick="findPath"
         android:layout_alignParentStart="true"
         android:text="search"
+        android:contentDescription="search, navigate to the given destination from the given origin"
         android:layout_marginTop="120dp"
-        android:layout_marginLeft="100dp"/>
+        android:layout_marginLeft="110dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,7 +52,7 @@
         android:id="@+id/myShit"
         android:layout_alignParentStart="true"
         android:layout_marginTop="110dp"
-        android:visibility="visible"/>
+        android:visibility="invisible"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -55,6 +60,7 @@
         android:id="@+id/nextLocation"
         android:onClick="nextStep"
         android:text="next step"
+        android:contentDescription="Skip this turn and go to the next turn"
         android:layout_alignParentStart="true"
         android:layout_marginTop="120dp" />
 
@@ -64,17 +70,11 @@
         android:id="@+id/trafficLight"
         android:onClick="findTrafficLight"
         android:text="traffic light"
+        android:contentDescription="Traffic light mode. See if the traffic light ahead is red or green."
         android:layout_alignParentStart="true"
         android:layout_marginTop="120dp"
-        android:layout_marginStart="200dp"/>
+        android:layout_marginStart="210dp"/>
 
-    <!--view
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        class="com.google.android.gms.maps.MapView"
-        android:id="@+id/view"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" /-->
 
     <view
         android:layout_width="wrap_content"

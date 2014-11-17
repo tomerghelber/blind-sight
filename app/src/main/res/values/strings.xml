@@ -8,7 +8,8 @@
 
     <integer name="google_play_services_version">17</integer>
 
-    <string name="edit_message">Enter a message</string>
+    <string name="edit_from">From: current location</string>
+    <string name="edit_to">To:</string>
     <string name="button_send">Send</string>
     <string name="title_activity_main">MainActivity</string>
 
