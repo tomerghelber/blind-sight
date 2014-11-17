@@ -50,6 +50,20 @@ public class Position {
         return new LatLng(latitude, longitude);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Position) || obj == null){
+            return false;
+        }
+        Position pos = (Position) obj;
+        if (pos.getLatitude() == latitude && pos.getLongitude() == longitude) {
+            return true;
+        }return false;
+    }
+
+    public double getLongitude() { return longitude; }
+    public double getLatitude() { return latitude; }
+
     public double longitude;
     public double latitude;
 

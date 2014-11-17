@@ -7,9 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-/**
- * Created by michelle on 13/11/2014.
- */
+
 public class UserRotation extends UpdateableActivityResource implements SensorEventListener {
 
     public UserRotation(UpdateableActivity activity) {
@@ -25,7 +23,7 @@ public class UserRotation extends UpdateableActivityResource implements SensorEv
 
     public void onCreate() {
         mSensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
-        mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR);
     }
 
     @Override

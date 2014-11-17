@@ -23,7 +23,7 @@ public class MainActivity extends UpdateableActivity  {
             navigation = new Navigation(this, false);
         }
         if (roadCreator == null) {
-            roadCreator = new RoadCreator(this);
+            roadCreator = new RoadCreator(this, userLocation);
             roadCreator.onCreate();
         }
     }
@@ -45,6 +45,7 @@ public class MainActivity extends UpdateableActivity  {
     protected void onPause() {
         super.onPause();
         userRotation.onPause();
+        navigation.stopVibrating();
     }
 
     public void print(String str) {
@@ -59,11 +60,10 @@ public class MainActivity extends UpdateableActivity  {
     }
 
     public void update() {
-        double x = userLocation.getLongitude();
-        double y = userLocation.getLatitude();
-        if (x != 0 || y != 0) {
+        Position currentPosition = userLocation.getCurrentPosition();
+        if (currentPosition.equals(new Position(0,0))) {
             try {
-                navigation.walk(x, y, userRotation.getAngle());
+                navigation.walk(currentPosition, userRotation.getAngle());
             } catch (Exception e) {
                 print(e.getClass().getName() + ": " + e.getMessage());
             }

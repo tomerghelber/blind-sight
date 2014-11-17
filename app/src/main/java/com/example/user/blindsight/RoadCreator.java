@@ -1,48 +1,47 @@
 package com.example.user.blindsight;
 
-        import android.app.Activity;
-        import android.location.Address;
-        import android.location.Geocoder;
-        import android.util.Log;
-        import android.util.Pair;
-        import android.view.View;
-        import android.widget.EditText;
-        import android.widget.TextView;
+import android.app.Activity;
+import android.location.Address;
+import android.location.Geocoder;
+import android.util.Log;
+import android.util.Pair;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
-        import com.example.user.blindsight.R;
-        import com.google.maps.DirectionsApi;
-        import com.google.maps.DirectionsApiRequest;
-        import com.google.maps.GeoApiContext;
-        import com.google.maps.model.DirectionsRoute;
-        import com.google.maps.model.LatLng;
-        import com.google.maps.model.TravelMode;
+import com.example.user.blindsight.R;
+import com.google.maps.DirectionsApi;
+import com.google.maps.DirectionsApiRequest;
+import com.google.maps.GeoApiContext;
+import com.google.maps.model.DirectionsRoute;
+import com.google.maps.model.LatLng;
+import com.google.maps.model.TravelMode;
 
-        import org.w3c.dom.Document;
-        import org.w3c.dom.NamedNodeMap;
-        import org.w3c.dom.Node;
-        import org.w3c.dom.NodeList;
-        import org.xml.sax.SAXException;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.net.URL;
-        import java.util.Collection;
-        import java.util.HashSet;
-        import java.util.LinkedList;
-        import java.util.List;
-        import java.util.Set;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
-        import javax.xml.parsers.DocumentBuilder;
-        import javax.xml.parsers.DocumentBuilderFactory;
-        import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-/**
- * Created by michelle on 14/11/2014.
- */
+
 public class RoadCreator extends ActivityResource {
 
-    public RoadCreator(Activity activity) {
+    public RoadCreator(Activity activity, UserLocation userLocation) {
         super(activity);
+        this.userLocation = userLocation;
     }
 
     protected void onCreate() {
@@ -89,20 +88,22 @@ public class RoadCreator extends ActivityResource {
         textView.setText("destination");
         String originText = ((EditText) activity.findViewById(R.id.editTextOrigin)).getText().toString();
         Log.e("my info:", originText);
-        textView.setText("origin");
-        Address originAddress = stringToAddress(originText);
-        textView.setText("origin address");
-        if (null == originAddress || !originAddress.hasLongitude() || !originAddress.hasLatitude()) {
-            return;
-        }
-        textView.setText("origin address fine");
         Address destinationAddress = stringToAddress(destinationText);
         textView.setText("destination address");
         if (null == destinationAddress || !destinationAddress.hasLongitude() || !destinationAddress.hasLatitude()) {
             return;
         }
         textView.setText("destination address fine");
-        LatLng originalLatLng = new LatLng(originAddress.getLatitude(), originAddress.getLongitude());
+        textView.setText("origin");
+        Address originAddress = stringToAddress(originText);
+        textView.setText("origin address");
+        LatLng originalLatLng;
+        if (null == originAddress || !originAddress.hasLongitude() || !originAddress.hasLatitude()) {
+            originalLatLng = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
+        } else {
+            originalLatLng = new LatLng(originAddress.getLatitude(), originAddress.getLongitude());
+        }
+        textView.setText("origin address fine");
         textView.setText("origin latlng");
         Log.e("my info:", originalLatLng.toString());
         LatLng destinationLatLng = new LatLng(destinationAddress.getLatitude(), destinationAddress.getLongitude());
@@ -161,5 +162,6 @@ public class RoadCreator extends ActivityResource {
     private Geocoder geocoder = null;
     private GeoApiContext geoApiContext = null;
     private DirectionsRoute directionsRoute = null;
+    private UserLocation userLocation;
 
 }

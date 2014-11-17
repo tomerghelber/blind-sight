@@ -107,8 +107,9 @@ public class UserLocation extends UpdateableActivityResource {
         }
     }
 
-    public double getLongitude() { return currentLocation.getLongitude(); }
-    public double getLatitude() { return currentLocation.getLatitude(); }
+    public double getLongitude() { return currentPosition.getLongitude(); }
+    public double getLatitude() { return currentPosition.getLatitude(); }
+    public Position getCurrentPosition() { return currentPosition; }
 
     public LocationManager locationManager = null;
 

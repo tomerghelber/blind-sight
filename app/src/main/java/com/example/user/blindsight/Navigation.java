@@ -30,11 +30,11 @@ public class Navigation extends ActivityResource {
         this(activity);
         this.updateable = activity;
         if (!stam) {
-            this.way.add(new Position(32.11324305, 34.81849653));
-            this.way.add(new Position(32.11289161, 34.81800239));
-            this.way.add(new Position(32.11309088, 34.81792111));
-            this.way.add(new Position(32.11313755, 34.81774711));
-            this.way.add(new Position(32.11340843, 34.81778721));
+            this.way.add(new Position(34.81849653, 32.11324305));
+            this.way.add(new Position(34.81800239, 32.11289161));
+//            this.way.add(new Position(32.11309088, 34.81792111));
+//            this.way.add(new Position(32.11313755, 34.81774711));
+//            this.way.add(new Position(32.11340843, 34.81778721));
         } else {
             this.way.add(new Position(30.81829653, 40.11290305));
             this.way.add(new Position(50.81800239, 32.11289161));
@@ -96,18 +96,6 @@ public class Navigation extends ActivityResource {
         for (DirectionsStep directionsStep : directionsSteps) {
             way.add(new Position(directionsStep.startLocation.lng, directionsStep.startLocation.lat));
         }
-    }
-//
-//    //transfer from -180 - 180 Angel to 0 - 360 Angel
-//    private float getRightAngel(float angel) {
-//        if (angel < 0) {
-//            return 180 - angel;
-//        }
-//        return angel;
-//    }
-
-    public void walk(double x, double y, float angle) {
-        walk(new Position(x, y), angle);
     }
 
     public void onDestroy() {
