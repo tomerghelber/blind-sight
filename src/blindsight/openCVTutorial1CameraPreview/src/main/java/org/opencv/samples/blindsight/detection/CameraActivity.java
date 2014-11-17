@@ -4,15 +4,10 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
 import org.opencv.samples.blindsight.R;
 import org.opencv.samples.blindsight.handler.StateHandler;
 import org.opencv.samples.blindsight.handler.VocalHandler;
@@ -28,15 +23,15 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayDeque;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Queue;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2 {
     private static final String TAG = "OCVSample::Activity";
@@ -52,6 +47,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
     public TextView data;
 
     private StateHandler handler;
+
+    public Socket socket;
+    public OutputStreamWriter out;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -118,6 +116,13 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         super.onPause();
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
+        if (socket != null) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -130,6 +135,13 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         super.onDestroy();
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
+        if (socket != null) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -173,32 +185,33 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
     }
 
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-        Mat img = inputFrame.rgba();
-        try {
-            TrafficLightsDetector det = new TrafficLightsDetector();
+        final Mat img = inputFrame.rgba();
+        new NetworkThread(img).execute();
+        TrafficLightsDetector det = new TrafficLightsDetector();
+        return img;
 //            List<TrafficLight> trafs = det.getAllTrafficLights(img, 30, 90);
 //            for (TrafficLight traf : trafs) {
 //                Rect rect = traf.getRect();
 //                Core.rectangle(img ,rect.br(), rect.tl(), getColor(traf.detectLightState()), 2);
 //            }
 
-            TrafficLight light = det.getState(img);
-            latest.add(light);
-            if (latest.size() > 3) {
-                latest.remove(0);
-            }
-            TrafficLight.State state  = getDominantState();
-            if (state == TrafficLight.State.GREEN) {
-                handler.handlegreen();
-            } else if (state == TrafficLight.State.RED) {
-                handler.handleRed();
-            }
-            return img;
-
-        } catch (Exception e) {
-            Log.e(TAG, "exception", e);
-        }
-        return img;
+//            TrafficLight light = det.getState(img);
+//            latest.add(light);
+//            if (latest.size() > 3) {
+//                latest.remove(0);
+//            }
+//            TrafficLight.State state  = getDominantState();
+//            if (state == TrafficLight.State.GREEN) {
+//                handler.handlegreen();
+//            } else if (state == TrafficLight.State.RED) {
+//                handler.handleRed();
+//            }
+//            return img;
+//
+//        } catch (Exception e) {
+//            Log.e(TAG, "exception", e);
+//        }
+//        return img;
     }
 
     private Scalar getColor(TrafficLight.State state) {
@@ -225,6 +238,10 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         } else {
             return green < red ? TrafficLight.State.RED : TrafficLight.State.GREEN;
         }
+    }
+
+    private void sendToServer(Mat img) {
+
     }
 
     List<TrafficLight> latest;
