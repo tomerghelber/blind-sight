@@ -91,10 +91,12 @@ public class Navigation extends ActivityResource {
     }
 
     public void setWay(DirectionsRoute directionsRoute) {
-        way = new LinkedList<Position>();
-        DirectionsStep[] directionsSteps = directionsRoute.legs[0].steps;
-        for (DirectionsStep directionsStep : directionsSteps) {
-            way.add(new Position(directionsStep.startLocation.lng, directionsStep.startLocation.lat));
+        if (directionsRoute != null) {
+            way = new LinkedList<Position>();
+            DirectionsStep[] directionsSteps = directionsRoute.legs[0].steps;
+            for (DirectionsStep directionsStep : directionsSteps) {
+                way.add(new Position(directionsStep.startLocation.lng, directionsStep.startLocation.lat));
+            }
         }
     }
 

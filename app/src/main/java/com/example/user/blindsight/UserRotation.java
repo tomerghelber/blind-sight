@@ -22,8 +22,10 @@ public class UserRotation extends UpdateableActivityResource implements SensorEv
     private Sensor mOrientation;
 
     public void onCreate() {
-        mSensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
-        mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR);
+        if (mSensorManager == null || mOrientation == null) {
+            mSensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
+            mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        }
     }
 
     @Override

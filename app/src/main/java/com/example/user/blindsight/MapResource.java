@@ -8,5 +8,11 @@ public class MapResource extends ActivityResource {
         super(activity);
     }
 
-    //private MapView
+    //public void onCreate(MapView map) {
+
+    //}
+
+
+
+    //private MapView;
 }

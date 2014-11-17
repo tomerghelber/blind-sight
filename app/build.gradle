@@ -15,7 +15,7 @@ android {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    }
     }
 }
 
@@ -24,9 +24,9 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-// Google Maps Services
-compile 'com.google.maps:google-maps-services:0.1.4'
-compile 'com.google.android.gms:play-services:6.1.71'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    // Google Maps Services
+    compile 'com.google.maps:google-maps-services:0.1.4'
+    compile 'com.google.android.gms:play-services:6.1.71'
+//    compile 'com.google.maps.android:android-maps-utils:0.3'
 }

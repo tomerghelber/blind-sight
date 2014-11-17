@@ -61,7 +61,7 @@ public class MainActivity extends UpdateableActivity  {
 
     public void update() {
         Position currentPosition = userLocation.getCurrentPosition();
-        if (currentPosition.equals(new Position(0,0))) {
+        if (!currentPosition.equals(new Position(0,0))) {
             try {
                 navigation.walk(currentPosition, userRotation.getAngle());
             } catch (Exception e) {
