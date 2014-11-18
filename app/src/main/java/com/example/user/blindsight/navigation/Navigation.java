@@ -37,9 +37,8 @@ public class Navigation extends ActivityResource {
 //            this.way.add(new Position(32.11340843, 34.81778721));
         } else {
             this.way.add(new Position(30.81829653, 40.11290305));
-            this.way.add(new Position(2.81800239, 32.11289161));
-            this.way.add(new Position(45.81792111, 45.11309088));
-            this.way.add(new Position(45.81774711, 90.11313755));
+            this.way.add(new Position(45.81792111, 2.11309088));
+            this.way.add(new Position(0.81774711, 90.11313755));
             this.way.add(new Position(60.81778721, 12.11340843));
         }
     }
@@ -56,9 +55,10 @@ public class Navigation extends ActivityResource {
 
 
         updateable.clear();
-        updateable.print(distance + " --- " + recommended_angle + "\n");
-        updateable.print("next:\n" + next.longitude + " , " + next.latitude + "\n");
-        updateable.print("current:\n" + position.longitude + " , " + position.latitude + "\n" + angle);
+        updateable.print("distance: " + distance + "m \n" + "needed angle: " + recommended_angle + "\n\n");
+        updateable.print("next location:\n" + next.latitude + " , " + next.longitude + "\n\n");
+        updateable.print("current location:\n" + position.latitude + " , " + position.longitude + "\n\n" +
+                "angle: " + angle + " -> ");
 
 
         //distance

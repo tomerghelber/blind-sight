@@ -1,4 +1,4 @@
-package com.example.user.blindsight.navigation;
+package com.example.user.blindsight;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,18 @@ import android.widget.Toast;
 
 import com.example.user.blindsight.R;
 import com.example.user.blindsight.detection.CameraActivity;
+import com.example.user.blindsight.navigation.MapResource;
+import com.example.user.blindsight.navigation.Navigation;
+import com.example.user.blindsight.navigation.Position;
+import com.example.user.blindsight.navigation.RoadCreator;
+import com.example.user.blindsight.navigation.UpdateableActivity;
+import com.example.user.blindsight.navigation.UserLocation;
+import com.example.user.blindsight.navigation.UserRotation;
+import com.google.android.gms.maps.MapView;
 import com.google.maps.model.DirectionsRoute;
 
 
-public class MainActivity extends UpdateableActivity  {
+public class MainActivity extends UpdateableActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,10 @@ public class MainActivity extends UpdateableActivity  {
             roadCreator = new RoadCreator(this, userLocation);
             roadCreator.onCreate();
         }
+//        if (mapResource == null) {
+//            mapResource = new MapResource(this, (MapView) findViewById(R.id.map));
+//            mapResource.onCreateView(savedInstanceState);
+//        }
     }
 
 
@@ -86,8 +98,6 @@ public class MainActivity extends UpdateableActivity  {
         DirectionsRoute route = roadCreator.getRoute();
         if (route != null) {
             navigation.setWay(route);
-        } else {
-            Toast.makeText(getApplicationContext(), "can't connect to the internet", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -112,5 +122,6 @@ public class MainActivity extends UpdateableActivity  {
     private UserRotation userRotation = null;
     private UserLocation userLocation = null;
     private RoadCreator roadCreator = null;
+    //private MapResource mapResource = null;
 
 }

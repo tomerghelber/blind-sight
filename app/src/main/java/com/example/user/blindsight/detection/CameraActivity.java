@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.example.user.blindsight.R;
 import com.example.user.blindsight.handler.StateHandler;
 import com.example.user.blindsight.handler.VocalHandler;
-import com.example.user.blindsight.navigation.MainActivity;
+import com.example.user.blindsight.MainActivity;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;

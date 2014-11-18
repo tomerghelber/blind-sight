@@ -2,9 +2,7 @@ package com.example.user.blindsight.navigation;
 
 import android.app.Activity;
 
-/**
- * Created by michelle on 13/11/2014.
- */
+
 public class UpdateableActivityResource extends ActivityResource {
 
     public UpdateableActivityResource(UpdateableActivity activity) {

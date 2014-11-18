@@ -9,9 +9,6 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by user-pc on 13/11/2014.
- */
 public class TrafficLightsDetector {
 
     public TrafficLight getState(Mat img) {

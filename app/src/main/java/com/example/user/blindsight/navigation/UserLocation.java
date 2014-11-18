@@ -113,7 +113,7 @@ public class UserLocation extends UpdateableActivityResource {
 
     public LocationManager locationManager = null;
 
-    protected Position currentPosition = new Position(0, 0);
+    public Position currentPosition = new Position(0, 0);
 
     private Location currentLocation;
 }

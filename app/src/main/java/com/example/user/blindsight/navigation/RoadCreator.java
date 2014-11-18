@@ -28,7 +28,7 @@ public class RoadCreator extends ActivityResource {
         this.userLocation = userLocation;
     }
 
-    protected void onCreate() {
+    public void onCreate() {
         if (null == geocoder) {
             geocoder = new Geocoder(activity.getApplicationContext());
         }
@@ -84,6 +84,11 @@ public class RoadCreator extends ActivityResource {
         textView.setText("origin address");
         LatLng originalLatLng;
         if (null == originAddress || !originAddress.hasLongitude() || !originAddress.hasLatitude()) {
+            if (userLocation.getLatitude() == 0 && userLocation.getLongitude() == 0) {
+                Toast.makeText(activity.getApplicationContext(),
+                        "No GPS signal. your current location could not be found", Toast.LENGTH_LONG).show();
+                return;
+            }
             originalLatLng = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
         } else {
             originalLatLng = new LatLng(originAddress.getLatitude(), originAddress.getLongitude());
@@ -100,6 +105,8 @@ public class RoadCreator extends ActivityResource {
             textView.setText(directionsRoute.toString());
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(activity.getApplicationContext(),
+                    "can't connect to the internet", Toast.LENGTH_LONG).show();
             return;
         }
     }
