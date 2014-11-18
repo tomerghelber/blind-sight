@@ -1,4 +1,4 @@
-package com.example.user.blindsight;
+package com.example.user.blindsight.navigation;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,10 +1,9 @@
-package com.example.user.blindsight;
+package com.example.user.blindsight.navigation;
 
 import android.app.Activity;
 import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,24 +17,8 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.TravelMode;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 
 public class RoadCreator extends ActivityResource {

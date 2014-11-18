@@ -1,10 +1,13 @@
-package com.example.user.blindsight;
+package com.example.user.blindsight.navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.blindsight.R;
+import com.example.user.blindsight.detection.CameraActivity;
 import com.google.maps.model.DirectionsRoute;
 
 
@@ -93,6 +96,8 @@ public class MainActivity extends UpdateableActivity  {
     }
 
     public void findTrafficLight(View v) {
+        Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
+        startActivity(intent);
     }
 
     public void startDemo(View v) {

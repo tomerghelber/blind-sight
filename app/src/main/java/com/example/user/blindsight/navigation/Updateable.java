@@ -1,4 +1,4 @@
-package com.example.user.blindsight;
+package com.example.user.blindsight.navigation;
 
 /**
  * Created by michelle on 13/11/2014.

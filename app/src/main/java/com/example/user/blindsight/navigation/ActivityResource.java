@@ -1,10 +1,7 @@
-package com.example.user.blindsight;
+package com.example.user.blindsight.navigation;
 
 import android.app.Activity;
 
-/**
- * Created by michelle on 14/11/2014.
- */
 public class ActivityResource {
 
     public ActivityResource(Activity activity) {
