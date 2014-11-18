@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':openCVLibrary249'
+project(':openCVLibrary249').projectDir = new File('src/blindsight/openCVLibrary249')
