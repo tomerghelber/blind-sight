@@ -37,7 +37,7 @@ public class Navigation extends ActivityResource {
 //            this.way.add(new Position(32.11340843, 34.81778721));
         } else {
             this.way.add(new Position(30.81829653, 40.11290305));
-            this.way.add(new Position(50.81800239, 32.11289161));
+            this.way.add(new Position(2.81800239, 32.11289161));
             this.way.add(new Position(45.81792111, 45.11309088));
             this.way.add(new Position(45.81774711, 90.11313755));
             this.way.add(new Position(60.81778721, 12.11340843));
@@ -97,6 +97,8 @@ public class Navigation extends ActivityResource {
             for (DirectionsStep directionsStep : directionsSteps) {
                 way.add(new Position(directionsStep.startLocation.lng, directionsStep.startLocation.lat));
             }
+        } else {
+
         }
     }
 
@@ -128,10 +130,22 @@ public class Navigation extends ActivityResource {
         return false;
     }
 
-    private Updateable updateable;
     private Vibrator vibrator;
     private Queue<Position> way;
     private Queue<Position> passed;
     private List<Position> attractions;
     private long vibratorFinish = 0;
+    private Updateable updateable = new EmptyUdateable();
+
+    class EmptyUdateable implements Updateable {
+        @Override
+        public void update() { }
+
+        @Override
+        public void print(String str) { }
+
+        @Override
+        public void clear() { }
+    };
+
 }

@@ -3,6 +3,9 @@ package com.example.user.blindsight;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.maps.model.DirectionsRoute;
 
 
 public class MainActivity extends UpdateableActivity  {
@@ -20,7 +23,7 @@ public class MainActivity extends UpdateableActivity  {
             userRotation.onCreate();
         }
         if (navigation == null) {
-            navigation = new Navigation(this, false);
+            navigation = new Navigation(this);
         }
         if (roadCreator == null) {
             roadCreator = new RoadCreator(this, userLocation);
@@ -77,7 +80,12 @@ public class MainActivity extends UpdateableActivity  {
 
     public void findPath(View v) {
         roadCreator.findPath(v);
-        navigation.setWay(roadCreator.getRoute());
+        DirectionsRoute route = roadCreator.getRoute();
+        if (route != null) {
+            navigation.setWay(route);
+        } else {
+            Toast.makeText(getApplicationContext(), "can't connect to the internet", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void nextStep(View v) {
@@ -85,6 +93,11 @@ public class MainActivity extends UpdateableActivity  {
     }
 
     public void findTrafficLight(View v) {
+    }
+
+    public void startDemo(View v) {
+        navigation = new Navigation(this, true);
+        userLocation.currentPosition = new Position(34.8187833, 32.14632264);
     }
 
 

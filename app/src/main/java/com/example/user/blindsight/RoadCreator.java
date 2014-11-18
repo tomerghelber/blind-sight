@@ -8,6 +8,7 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.blindsight.R;
 import com.google.maps.DirectionsApi;
@@ -91,6 +92,7 @@ public class RoadCreator extends ActivityResource {
         Address destinationAddress = stringToAddress(destinationText);
         textView.setText("destination address");
         if (null == destinationAddress || !destinationAddress.hasLongitude() || !destinationAddress.hasLatitude()) {
+            Toast.makeText(activity.getApplicationContext(), "write a destination", Toast.LENGTH_LONG).show();
             return;
         }
         textView.setText("destination address fine");
