@@ -10,5 +10,13 @@
     <string name="edit_to">To:</string>
     <string name="button_send">Send</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="originEditTextDescription">The address where the navigation will start. Default to your current location</string>
+    <string name="destinationEditTextDescription">You destination.</string>
+    <string name="searchButtonDescription">search, navigate to the given destination from the given origin</string>
+    <string name="searchButtonText">search</string>
+    <string name="nextLocationButtonText">next step</string>
+    <string name="nextLocationButtonDescription">Skip this turn and go to the next turn</string>
+    <string name="trafficLightButtonText">traffic light</string>
+    <string name="trafficLightButtonDescription">Traffic light mode. See if the traffic light ahead is red or green.</string>
 
 </resources>

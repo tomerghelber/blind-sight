@@ -6,45 +6,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
 
-    <TextView android:id="@+id/edit_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:visibility="visible"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPostalAddress"
-        android:ems="10"
-        android:id="@+id/editTextOrigin"
-        android:hint="@string/edit_from"
-        android:contentDescription="The address where the navigation will start. Default to your current location"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPostalAddress"
-        android:ems="10"
-        android:id="@+id/editTextDestination"
-        android:contentDescription="You destination."
-        android:hint="@string/edit_to"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonFind"
-        android:onClick="findPath"
-        android:layout_alignParentStart="true"
-        android:text="search"
-        android:contentDescription="search, navigate to the given destination from the given origin"
-        android:layout_marginTop="120dp"
-        android:layout_marginLeft="110dp"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,27 +14,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="110dp"
         android:visibility="invisible"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/nextLocation"
-        android:onClick="nextStep"
-        android:text="next step"
-        android:contentDescription="Skip this turn and go to the next turn"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="120dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/trafficLight"
-        android:onClick="findTrafficLight"
-        android:text="traffic light"
-        android:contentDescription="Traffic light mode. See if the traffic light ahead is red or green."
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="120dp"
-        android:layout_marginStart="210dp"/>
 
 
     <!--view
@@ -85,15 +25,83 @@
         android:layout_toEndOf="@+id/nextLocation"
         android:layout_alignEnd="@+id/myShit" /-->
 
-    <Button
-        android:layout_width="130dp"
-        android:layout_height="50dp"
-        android:text="Demo"
-        android:contentDescription="Demo."
-        android:onClick="startDemo"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:ems="10"
+            android:id="@+id/editTextOrigin"
+            android:hint="@string/edit_from" />
+        <!--android:contentDescription="@string/originEditTextDescription"-->
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:ems="10"
+            android:id="@+id/editTextDestination"
+            android:hint="@string/edit_to" />
+        <!--android:contentDescription="@string/destinationEditTextDescription"-->
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonFind"
+                android:onClick="findPath"
+                android:text="@string/searchButtonText"
+                android:contentDescription="@string/searchButtonDescription"
+                style="?android:buttonBarButtonStyle" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nextLocation"
+                android:onClick="nextStep"
+                android:text="@string/nextLocationButtonText"
+                android:contentDescription="@string/nextLocationButtonDescription"
+                style="?android:buttonBarButtonStyle" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trafficLight"
+                android:onClick="findTrafficLight"
+                android:text="@string/trafficLightButtonText"
+                android:contentDescription="@string/trafficLightButtonDescription"
+                style="?android:buttonBarButtonStyle" />
+        </LinearLayout>
+
+
+        <TextView android:id="@+id/edit_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:visibility="visible"/>
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:text="Demo"
+            android:contentDescription="Demo."
+            style="?android:buttonBarButtonStyle"
+            android:onClick="startDemo"
+            android:id="@+id/button"
+            android:layout_gravity="bottom|center_horizontal" />
+
+    </LinearLayout>
 
 </RelativeLayout>
 
