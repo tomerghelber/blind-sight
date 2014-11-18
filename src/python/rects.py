@@ -40,4 +40,5 @@ if __name__ == "__main__":
             else:
                 col = (100, 100, 100)
             cv2.rectangle(img, ul, br, col, 2)
+        cv2.imwrite("g_" + f, img)
         show_image(img)
